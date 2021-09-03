@@ -9,13 +9,13 @@ clock = pygame.time.Clock()
 pygame.init()
 pygame.display.set_caption("My Game")
 
-size = width, height = 400, 400
+size = width, height = 200, 600
 
 speed = [0, 0]
 black = 0, 0, 0
 
-screen = pygame.display.set_mode(size)
-
+screen = pygame.display.set_mode((size[0]*2, size[1]*2))
+display = pygame.Surface(size)
 player_image = pygame.image.load("images/player.png")
 playerrect = player_image.get_rect()
 
@@ -50,9 +50,13 @@ while True:
     if ballrect.top < 0 or ballrect.bottom > height:
         speed[1] = -speed[1]
     pygame.display.flip()
-    screen.fill(black)
-    screen.blit(ball, ballrect)
-    test = pygame.draw.rect(screen, (255,0,0), pygame.Rect(100, 100, 60, 60))
+    display.fill(black)
+    display.blit(ball, ballrect)
+    test = pygame.draw.rect(display, (255,0,0), pygame.Rect(100, 100, 60, 60))
+    screen.blit(pygame.transform.scale(display,size),(0,0))
+
+
+    
     if ballrect.colliderect(test):
         print ("hit")
     
